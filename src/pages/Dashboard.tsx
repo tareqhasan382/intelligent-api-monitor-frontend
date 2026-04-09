@@ -9,7 +9,6 @@ import {
   ArrowUpRight,
   ArrowDownRight,
   Plus,
-  Settings as SettingsIcon,
   Search,
   ArrowRight,
   ShieldAlert,
@@ -36,10 +35,8 @@ import Loading from "@/components/common/Loading";
 import ErrorPage from "@/components/common/ErrorPage";
 import { format, subHours, isWithinInterval } from "date-fns";
 import { cn } from "@/lib/utils";
-import { Link } from "react-router-dom";
 import Modal from "@/components/ui/Modal";
 import MonitorContent from "@/components/monitor/MonitorContent";
-import SettingsContent from "@/components/settings/SettingsContent";
 import { Button } from "@/components/ui/Button";
 import toast from "react-hot-toast";
 
@@ -109,7 +106,6 @@ const Dashboard = () => {
   const { data: alertsResponse, isLoading, isError, refetch } = useGetAllAlertsQuery();
   const [resolveAlert, { isLoading: isResolving }] = useResolveAlertMutation();
   const [isMonitorOpen, setIsMonitorOpen] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [filter, setFilter] = useState<"all" | "active" | "resolved">("active");
 
@@ -249,12 +245,6 @@ const Dashboard = () => {
             <Plus className="w-5 h-5 mr-2" />
             New Scan
           </Button>
-          <button
-            onClick={() => setIsSettingsOpen(true)}
-            className="p-4 bg-white rounded-2xl border border-slate-100 text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-all shadow-sm"
-          >
-            <SettingsIcon className="w-5 h-5" />
-          </button>
         </div>
       </div>
 
@@ -486,9 +476,9 @@ const Dashboard = () => {
 
         {filteredAlerts.length > 6 && (
            <div className="flex justify-center pt-4">
-              <Link to="/alerts" className="px-8 py-4 bg-white border border-slate-100 rounded-2xl text-[10px] font-black text-slate-500 hover:text-blue-600 hover:border-blue-100 shadow-sm transition-all uppercase tracking-widest">
-                View All Incidents ({alerts.length})
-              </Link>
+              <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                Showing latest {Math.min(filteredAlerts.length, 6)} of {filteredAlerts.length} incidents
+              </p>
            </div>
         )}
       </motion.div>
@@ -501,15 +491,6 @@ const Dashboard = () => {
         maxWidth="4xl"
       >
         <MonitorContent onSuccess={() => setIsMonitorOpen(false)} />
-      </Modal>
-
-      <Modal
-        isOpen={isSettingsOpen}
-        onClose={() => setIsSettingsOpen(false)}
-        title="System Preferences"
-        maxWidth="4xl"
-      >
-        <SettingsContent />
       </Modal>
     </div>
   );
