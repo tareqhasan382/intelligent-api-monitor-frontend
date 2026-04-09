@@ -3,9 +3,7 @@ import { Link, useLocation, useNavigate, Outlet } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   LayoutDashboard,
-  Activity,
   Bell,
-  Settings,
   LogOut,
   Menu,
   X,
@@ -64,9 +62,6 @@ const DashboardLayout = () => {
 
   const menuItems = [
     { to: "/", icon: LayoutDashboard, label: "Overview" },
-    { to: "/monitor", icon: Activity, label: "API Monitor" },
-    { to: "/alerts", icon: Bell, label: "Alerts" },
-    { to: "/settings", icon: Settings, label: "Settings" },
   ];
 
   return (
@@ -142,8 +137,8 @@ const DashboardLayout = () => {
 
         {/* Top Navbar for Desktop */}
         <header className="hidden md:flex bg-white border-b border-slate-200 px-8 py-4 items-center justify-between sticky top-0 z-30">
-          <h2 className="font-bold text-slate-800 text-lg">
-            {menuItems.find((m) => m.to === location.pathname)?.label || "Dashboard"}
+          <h2 className="font-bold text-slate-800 text-lg uppercase tracking-widest text-xs">
+            Command Center
           </h2>
           <div className="flex items-center gap-4">
             <button className="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-full transition-all relative">

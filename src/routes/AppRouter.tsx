@@ -8,9 +8,6 @@ import DashboardLayout from "../layouts/DashboardLayout";
 const Login = lazy(() => import("../pages/Login"));
 const Register = lazy(() => import("../pages/Register"));
 const Dashboard = lazy(() => import("../pages/Dashboard"));
-const Monitor = lazy(() => import("../pages/Monitor"));
-const Alerts = lazy(() => import("../pages/Alerts"));
-const Settings = lazy(() => import("../pages/Settings"));
 const NotFound = lazy(() => import("../pages/NotFound"));
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
@@ -45,18 +42,6 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Dashboard />,
-      },
-      {
-        path: "/monitor",
-        element: <Monitor />,
-      },
-      {
-        path: "/alerts",
-        element: <Alerts />,
-      },
-      {
-        path: "/settings",
-        element: <Settings />,
       },
     ],
   },
