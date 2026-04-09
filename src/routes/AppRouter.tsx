@@ -1,12 +1,17 @@
 import { Suspense, lazy } from "react";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
-import { useAppSelector } from "@/redux/hooks";
-import Loading from "@/components/common/Loading";
+import { useAppSelector } from "../redux/hooks";
+import Loading from "../components/common/Loading";
+import DashboardLayout from "../layouts/DashboardLayout";
 
 // Lazy load components
-const Login = lazy(() => import("@/pages/Login"));
-const Register = lazy(() => import("@/pages/Register"));
-const NotFound = lazy(() => import("@/pages/NotFound"));
+const Login = lazy(() => import("../pages/Login"));
+const Register = lazy(() => import("../pages/Register"));
+const Dashboard = lazy(() => import("../pages/Dashboard"));
+const Monitor = lazy(() => import("../pages/Monitor"));
+const Alerts = lazy(() => import("../pages/Alerts"));
+const Settings = lazy(() => import("../pages/Settings"));
+const NotFound = lazy(() => import("../pages/NotFound"));
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { token } = useAppSelector((state) => state.auth);
@@ -33,16 +38,27 @@ const router = createBrowserRouter([
     path: "/",
     element: (
       <ProtectedRoute>
-        <div className="p-8">
-          <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
-            Dashboard
-          </h1>
-          <p className="text-slate-500 mt-2 font-medium">
-            Welcome to your API Monitoring dashboard.
-          </p>
-        </div>
+        <DashboardLayout />
       </ProtectedRoute>
     ),
+    children: [
+      {
+        path: "/",
+        element: <Dashboard />,
+      },
+      {
+        path: "/monitor",
+        element: <Monitor />,
+      },
+      {
+        path: "/alerts",
+        element: <Alerts />,
+      },
+      {
+        path: "/settings",
+        element: <Settings />,
+      },
+    ],
   },
   {
     path: "/login",
