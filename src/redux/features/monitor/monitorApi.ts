@@ -4,7 +4,7 @@ import type { Monitor, Alert, ApiResponseData } from "../../../types/monitor";
 export const monitorApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     // Monitor API
-    processMonitor: builder.mutation<{ success: boolean; data: Monitor }, { apiResponses: ApiResponseData[] } | FormData>({
+    processMonitor: builder.mutation<ApiResponseData[], { apiResponses: ApiResponseData[] } | FormData>({
       query: (data) => ({
         url: "/monitor",
         method: "POST",

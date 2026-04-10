@@ -210,7 +210,9 @@ const Dashboard = () => {
         beginAtZero: true,
         grid: {
           color: "rgba(226, 232, 240, 0.5)",
-          drawBorder: false,
+        },
+        border: {
+          display: false,
         },
         ticks: {
           font: { weight: "bold", size: 10 },
@@ -219,6 +221,9 @@ const Dashboard = () => {
       },
       x: {
         grid: {
+          display: false,
+        },
+        border: {
           display: false,
         },
         ticks: {
@@ -408,17 +413,36 @@ const Dashboard = () => {
                     <p className="text-[11px] font-bold text-slate-500 leading-relaxed line-clamp-2 italic">
                       "{alert.description}"
                     </p>
-                    {alert.ai_description && (
-                      <div className="pt-3 border-t border-slate-200 mt-2">
-                         <div className="flex items-center gap-2 mb-1.5">
-                           <TrendingUp className="w-3 h-3 text-blue-600" />
-                           <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">AI Insight</span>
+                    
+                    {/* AI Insight Section */}
+                    <div className="pt-3 border-t border-slate-200 mt-2">
+                       <div className="flex items-center gap-2 mb-1.5">
+                         <TrendingUp className={cn("w-3 h-3", alert.alertStatus === "pending" ? "text-amber-500 animate-pulse" : "text-blue-600")} />
+                         <span className="text-[9px] font-black text-slate-400 uppercase tracking-widest">
+                           AI Insight {alert.alertStatus === "pending" && "pending"}
+                         </span>
+                       </div>
+                       {alert.alertStatus === "pending" ? (
+                         <div className="flex items-center gap-2">
+                           <div className="flex gap-1">
+                             <span className="w-1 h-1 bg-amber-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                             <span className="w-1 h-1 bg-amber-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                             <span className="w-1 h-1 bg-amber-400 rounded-full animate-bounce"></span>
+                           </div>
+                           <p className="text-[10px] font-black text-amber-500/80 uppercase tracking-widest">
+                             Analyzing...
+                           </p>
                          </div>
+                       ) : alert.ai_description ? (
                          <p className="text-[10px] font-black text-slate-700 line-clamp-3 leading-relaxed">
                            {alert.ai_description}
                          </p>
-                      </div>
-                    )}
+                       ) : (
+                         <p className="text-[10px] font-black text-slate-400 italic">
+                           No additional insights available.
+                         </p>
+                       )}
+                    </div>
                   </div>
 
                   <div className="grid grid-cols-2 gap-4">

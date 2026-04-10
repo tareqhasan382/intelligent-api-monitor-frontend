@@ -139,7 +139,7 @@ const MonitorContent = ({ onSuccess }: { onSuccess?: () => void }) => {
                   )}
                 </div>
               ) : (
-                <div className="h-full flex flex-col space-y-3">
+                <div className=" h-64 flex flex-col space-y-3">
                   <div className="flex items-center justify-between">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest">JSON Input</label>
                     <button
